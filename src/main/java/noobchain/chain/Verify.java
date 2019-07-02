@@ -4,6 +4,7 @@ import noobchain.block.Block;
 import noobchain.transaction.Transaction;
 import noobchain.transaction.transactioninput.TransactionInput;
 import noobchain.transaction.transactionoutput.TransactionOutput;
+import noobchain.transaction.utxo.UTXO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +12,11 @@ import java.util.HashMap;
 public class Verify {
     private String message = "";
 
-    public boolean isChainValid(int difficulty, Transaction genesisTransaction, ArrayList<Block> blockchain) throws Exception {
+    public boolean isChainvalid(int difficulty, Transaction genesisTransaction, ArrayList<Block> blockchain) throws Exception {
         Block currentBlock;
         Block previousBlock;
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
-        HashMap<String, TransactionOutput> tempUTXOs = new HashMap<>(); //a temporary working list of unspent transactions at a given block state.
+        UTXO tempUTXOs = new UTXO(); //a temporary working list of unspent transactions at a given block state.
         tempUTXOs.put(genesisTransaction.getOutputs().get(0).getId(), genesisTransaction.getOutputs().get(0));
 
         //loop through blockchain to check hashes:
@@ -45,7 +46,7 @@ public class Verify {
                 Transaction currentTransaction = currentBlock.getTransactions().get(t);
 
                 if(currentTransaction.verifySignature()) {
-                    message = "#Signature on transaction(" + t + ") is Invalid";
+                    message = "#Signature on transaction(" + t + ") is invalid";
                     return false;
                 }
                 if(currentTransaction.getInputsValue() != currentTransaction.getOutputsValue()) {
@@ -57,12 +58,12 @@ public class Verify {
                     tempOutput = tempUTXOs.get(input.getTransactionOutputId());
 
                     if(tempOutput == null) {
-                        message = "#Referenced input on transaction(" + t + ") is Missing";
+                        message = "#Referenced input on transaction(" + t + ") is missing";
                         return false;
                     }
 
                     if(input.getUtxo().getValue() != tempOutput.getValue()) {
-                        message = "#Referenced input transaction(" + t + ") value is Invalid";
+                        message = "#Referenced input transaction(" + t + ") value is invalid";
                         return false;
                     }
 
@@ -74,11 +75,11 @@ public class Verify {
                 }
 
                 if( currentTransaction.getOutputs().get(0).getRecipient() != currentTransaction.getReciepient()) {
-                    message = "#transaction(" + t + ") output reciepient is not who it should be";
+                    message = "#transaction(" + t + ") wrong output recipient";
                     return false;
                 }
                 if( currentTransaction.getOutputs().get(1).getRecipient() != currentTransaction.getSender()) {
-                    message = "#transaction(" + t + ") output 'change' is not sender.";
+                    message = "#transaction(" + t + ") output 'change' is not a sender.";
                     return false;
                 }
 
