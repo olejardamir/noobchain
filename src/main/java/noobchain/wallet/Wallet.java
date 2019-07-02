@@ -15,27 +15,27 @@ public class Wallet {
 
 	private PrivateKey privateKey;
 	private PublicKey publicKey;
-	private final HashMap<String, TransactionOutput> utxos = new HashMap<>();
-	
+	private final HashMap<String, TransactionOutput> utxos = new HashMap<>(); //TODO wrong architecture, this should be UTXO method
+
 	public Wallet() throws Exception {
 		generateKeyPair();
 	}
-		
+
 	private void generateKeyPair() throws Exception {
 
-			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
-			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-			ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
-			// Initialize the key generator and generate a KeyPair
-			keyGen.initialize(ecSpec, random); //256 
-	        KeyPair keyPair = keyGen.generateKeyPair();
-	        // Set the public and private keys from the keyPair
-	        privateKey = keyPair.getPrivate();
-	        publicKey = keyPair.getPublic();
-	        
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
+		SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+		ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
+		// Initialize the key generator and generate a KeyPair
+		keyGen.initialize(ecSpec, random); //256
+		KeyPair keyPair = keyGen.generateKeyPair();
+		// Set the public and private keys from the keyPair
+		privateKey = keyPair.getPrivate();
+		publicKey = keyPair.getPublic();
+
 
 	}
-	
+
 	public float getBalance() {
 		float total = 0;
 		total = myCoinsToUnspentTransactions(total);

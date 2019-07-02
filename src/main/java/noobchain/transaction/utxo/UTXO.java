@@ -24,4 +24,8 @@ public class UTXO {
     public void remove(String key) {
         UTXO.remove(key);
     }
+
+    public Iterable<? extends Map.Entry<String, TransactionOutput>> entrySet() {
+        return UTXO.entrySet();
+    }
 }

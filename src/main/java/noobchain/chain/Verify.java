@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Verify {
     private String message = "";
 
-    public boolean isChainvalid(int difficulty, Transaction genesisTransaction, ArrayList<Block> blockchain) throws Exception {
+    public boolean isChainValid(int difficulty, Transaction genesisTransaction, ArrayList<Block> blockchain) throws Exception {
         Block currentBlock;
         Block previousBlock;
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
@@ -93,5 +93,6 @@ public class Verify {
     public String getMessage() {
     return message;
     }
+
 
 }
