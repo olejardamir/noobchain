@@ -6,18 +6,18 @@ import noobchain.transaction.utxo.UTXO;
 import noobchain.wallet.Wallet;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 
-public class NoobChain {
+public class NoobChain extends UTXO{
 
-	private final ArrayList<Block> blockchain = new ArrayList<>();
+	private ArrayList<Block> blockchain = new ArrayList<>();
 	private UTXO utxo = new UTXO();
 	private final int difficulty = 3;
-	private static final double minimumTransaction = Double.MIN_VALUE;
+	private static double minimumTransaction = Double.MIN_VALUE;
 	private Transaction genesisTransaction;
 
-
+	public NoobChain() throws Exception {
+	}
 
 	public void initiateGenesisTransaction(Wallet walletA, Wallet coinbase, double value) throws Exception {
 		genesisTransaction = new Transaction(coinbase.getPublicKey(), walletA.getPublicKey(), value, null);
@@ -31,10 +31,6 @@ public class NoobChain {
 	public void addBlock(Block newBlock) throws Exception {
 		newBlock.mineBlock(difficulty);
 		blockchain.add(newBlock);
-	}
-
-	public static Map<String, TransactionOutput> getUTXOs() {
-		return UTXO.getUTXO();
 	}
 
 	public static double getMinimumTransaction() {

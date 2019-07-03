@@ -44,7 +44,7 @@ public class Wallet {
 	}
 
 	private double myCoinsToUnspentTransactions(double total) {
-		for (Map.Entry<String, TransactionOutput> item: NoobChain.getUTXOs().entrySet()){
+		for (Map.Entry<String, TransactionOutput> item: NoobChain.entrySet()){
 			TransactionOutput utxo = item.getValue();
 			if(utxo.isMine(publicKey)) { //if output belongs to me ( if coins belong to me )
 				utxos.put(utxo.getId(),utxo); //add it to our list of unspent transactions.

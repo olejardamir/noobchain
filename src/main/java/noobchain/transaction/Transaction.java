@@ -30,7 +30,7 @@ public class Transaction extends Header {
 				
 		//Gathers transaction inputs (Making sure they are unspent):
 		for(TransactionInput i : inputs) {
-			i.setUxto(NoobChain.getUTXOs().get(i.getTransactionOutputId()));
+			i.setUxto(NoobChain.get(i.getTransactionOutputId()));
 		}
 
 		//Checks if transaction is valid:
@@ -48,13 +48,13 @@ public class Transaction extends Header {
 
 		//Add outputs to Unspent list
 		for(TransactionOutput o : outputs) {
-			NoobChain.getUTXOs().put(o.getId() , o);
+			NoobChain.put(o.getId() , o);
 		}
 		
 		//Remove transaction inputs from UTXO lists as spent:
 		for(TransactionInput i : inputs) {
 			if(i.getUtxo() == null) continue; //if transaction can't be found skip it
-			NoobChain.getUTXOs().remove(i.getUtxo().getId());
+			NoobChain.remove(i.getUtxo().getId());
 		}
 		
 		return true;

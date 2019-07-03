@@ -7,25 +7,25 @@ import java.util.Map;
 
 public class UTXO {
 
-    private static final HashMap<String, TransactionOutput> UTXO = new HashMap<>();
+    private static HashMap<String, TransactionOutput> UTXO = new HashMap<>();
 
-    public static Map<String, TransactionOutput> getUTXO() {
-        return UTXO;
+    public UTXO() throws Exception {
     }
 
-    public void put(String key, TransactionOutput value) {
+    public static void put(String key, TransactionOutput value) {
+
         UTXO.put(key, value);
     }
 
-    public TransactionOutput get(String key) {
+    public static TransactionOutput get(String key) {
         return UTXO.get(key);
     }
 
-    public void remove(String key) {
+    public static void remove(String key) {
         UTXO.remove(key);
     }
 
-    public Iterable<? extends Map.Entry<String, TransactionOutput>> entrySet() {
+    public static Iterable<? extends Map.Entry<String, TransactionOutput>> entrySet() {
         return UTXO.entrySet();
     }
 }
