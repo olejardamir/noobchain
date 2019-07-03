@@ -19,8 +19,8 @@ public class NoobChain {
 
 
 
-	void initiateGenesisTransaction(Wallet walletA, Wallet coinbase) throws Exception {
-		genesisTransaction = new Transaction(coinbase.getPublicKey(), walletA.getPublicKey(), 100f, null);
+	public void initiateGenesisTransaction(Wallet walletA, Wallet coinbase, double value) throws Exception {
+		genesisTransaction = new Transaction(coinbase.getPublicKey(), walletA.getPublicKey(), value, null);
 		genesisTransaction.generateSignature(coinbase.getPrivateKey());	 //manually sign the genesis transaction
 		genesisTransaction.setTransactionId("0"); //manually set the transaction id
 		genesisTransaction.getOutputs().add(new TransactionOutput(genesisTransaction.getReciepient(), genesisTransaction.getValue(), genesisTransaction.getTransactionId())); //manually add the Transactions Output
@@ -28,7 +28,7 @@ public class NoobChain {
 	}
 
 
-	void addBlock(Block newBlock) throws Exception {
+	public void addBlock(Block newBlock) throws Exception {
 		newBlock.mineBlock(difficulty);
 		blockchain.add(newBlock);
 	}

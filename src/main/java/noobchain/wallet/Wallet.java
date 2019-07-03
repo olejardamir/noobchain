@@ -15,7 +15,8 @@ public class Wallet {
 
 	private PrivateKey privateKey;
 	private PublicKey publicKey;
-	private final HashMap<String, TransactionOutput> utxos = new HashMap<>(); //TODO wrong architecture, this should be UTXO method
+	private final HashMap<String, TransactionOutput> utxos = new HashMap<>();
+	private String message = "";
 
 	public Wallet() throws Exception {
 		generateKeyPair();
@@ -55,7 +56,7 @@ public class Wallet {
 
 	public Transaction sendFunds(PublicKey recipient, double value ) throws Exception {
 		if(getBalance() < value) {
-			System.out.println("#Not Enough funds to send transaction. transaction Discarded.");
+			message = "#Not Enough funds to send transaction. transaction Discarded.";
 			return null;
 		}
 		List<TransactionInput> inputs = new ArrayList<>();

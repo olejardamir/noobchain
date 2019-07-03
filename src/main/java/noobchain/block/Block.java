@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Block extends Header {
 
+	private String message = "";
 
 	//block Constructor.
 	public Block(String previousHash) throws Exception {
@@ -27,7 +28,7 @@ public class Block extends Header {
 		super.setMerkleRoot(new MerkleRoot().getMerkleRoot(super.getTransactions()));
 		String target = StringUtil.getDifficultyString(difficulty); //Create a string with difficulty * "0"
 		iterateHashDifficulty(difficulty, target);
-		System.out.println("block Mined!!! : " + super.getHash());
+		message = "block Mined!!! : " + super.getHash();
 	}
 
 	private void iterateHashDifficulty(int difficulty, String target) throws Exception {
@@ -43,13 +44,15 @@ public class Block extends Header {
 		if(transaction == null) return;
 
 		if((!super.getPreviousHash().equals("0")) && !transaction.processTransaction()) {
-				System.out.println("transaction failed to process. Discarded.");
-				return;
+			message = "transaction failed to process. Discarded.";
+			return;
 		}
 
 		super.addTransactionToArray(transaction);
-		System.out.println("transaction Successfully added to block");
+		message = "transaction Successfully added to block";
 	}
 
-
+	public String getMessage() {
+		return message;
+	}
 }
