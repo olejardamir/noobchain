@@ -14,7 +14,7 @@ public class Transaction extends Header {
 	private int sequence = 0; //A rough count of how many transactions have been generated
 	
 	// Constructor: 
-	public Transaction(PublicKey from, PublicKey to, float value,  List<TransactionInput> inputs) {
+	public Transaction(PublicKey from, PublicKey to, double value,  List<TransactionInput> inputs) {
 		super.setSender(from);
 		super.setReciepient(to);
 		super.setValue(value);
@@ -41,11 +41,11 @@ public class Transaction extends Header {
 		}
 		
 		//Generate transaction outputs:
-		float leftOver = getInputsValue() - super.getValue(); //get value of inputs then the left over change:
+		double leftOver = getInputsValue() - super.getValue(); //get value of inputs then the left over change:
 		super.setTransactionId(calculateHash());
 		outputs.add(new TransactionOutput( super.getReciepient(), super.getValue(), super.getTransactionId())); //send value to recipient
 		outputs.add(new TransactionOutput( super.getSender(), leftOver, super.getTransactionId())); //send the left over 'change' back to sender
-				
+
 		//Add outputs to Unspent list
 		for(TransactionOutput o : outputs) {
 			NoobChain.getUTXOs().put(o.getId() , o);
@@ -60,8 +60,8 @@ public class Transaction extends Header {
 		return true;
 	}
 	
-	public float getInputsValue() {
-		float total = 0;
+	public double getInputsValue() {
+		double total = 0;
 		for(TransactionInput i : inputs) {
 			if(i.getUtxo() == null) continue; //if transaction can't be found skip it, This behavior may not be optimal.
 			total += i.getUtxo().getValue();
@@ -79,8 +79,8 @@ public class Transaction extends Header {
 		return !new ECDSASig().verifyECDSASig(super.getSender(), data, super.getSignature());
 	}
 	
-	public float getOutputsValue() {
-		float total = 0;
+	public double getOutputsValue() {
+		double total = 0;
 		for(TransactionOutput o : outputs) {
 			total += o.getValue();
 		}

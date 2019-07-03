@@ -12,7 +12,7 @@ public class Header {
     private String transactionId; //Contains a hash of transaction*
     private PublicKey sender = null; //Senders address/public key.
     private PublicKey reciepient; //Recipients address/public key.
-    private float value; //Contains the amount we wish to send to the recipient.
+    private double value; //Contains the amount we wish to send to the recipient.
     private byte[] signature; //This is to prevent anybody else from spending funds in our wallet.
 
 
@@ -45,11 +45,11 @@ public class Header {
         this.reciepient = reciepient;
     }
 
-    public float getValue() {
+    public double getValue() {
         return value;
     }
 
-    void setValue(float value) {
+    void setValue(double value) {
         this.value = value;
     }
 

@@ -10,7 +10,7 @@ public class TransactionOutput extends Header{
 
 
 	//Constructor
-	public TransactionOutput(PublicKey  recipient, float value, String parentTransactionId) throws Exception {
+	public TransactionOutput(PublicKey  recipient, double value, String parentTransactionId) throws Exception {
 		super.setRecipient(recipient);
 		super.setValue(value);
 		//the id of the transaction this output was created in

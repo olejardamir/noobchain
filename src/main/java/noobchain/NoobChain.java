@@ -14,7 +14,7 @@ public class NoobChain {
 	private final ArrayList<Block> blockchain = new ArrayList<>();
 	private UTXO utxo = new UTXO();
 	private final int difficulty = 3;
-	private static final float minimumTransaction = 0.1f;
+	private static final double minimumTransaction = Double.MIN_VALUE;
 	private Transaction genesisTransaction;
 
 
@@ -37,7 +37,7 @@ public class NoobChain {
 		return UTXO.getUTXO();
 	}
 
-	public static float getMinimumTransaction() {
+	public static double getMinimumTransaction() {
 		return minimumTransaction;
 	}
 
